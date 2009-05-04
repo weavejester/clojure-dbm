@@ -28,9 +28,8 @@
   "Open a new Tokyo Cabinet database given a database class like HDB."
   [db-class repository]
   (let [db       (.newInstance db-class)
-        filename (:filename repository)
-        success? (.open db filename write+create)]
-    (if success?
+        filename (:filename repository)]
+    (if (.open db filename write+create)
       (assoc repository :db db)
       (throwf (str "Could not open file: " (error-message db))))))
 
